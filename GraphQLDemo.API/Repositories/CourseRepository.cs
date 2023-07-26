@@ -1,4 +1,4 @@
-﻿using GraphQLDemo.API.Data;
+﻿ using GraphQLDemo.API.Data;
 using GraphQLDemo.API.Data.DTO;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,23 +15,15 @@ public class CourseRepository : ICourseRepository
 
     public async Task<IEnumerable<CourseDTO>> GetAll()
     {
-        using (SchoolDbContext context = _contextFactory.CreateDbContext())
-        {
-            return await context.Courses
-                .Include(c => c.Instructor)
-                .Include(c => c.Students)
-                .ToListAsync();
-        }
+        using SchoolDbContext context = _contextFactory.CreateDbContext();
+        return await context.Courses.ToListAsync();
     }
 
     public async Task<CourseDTO> GetById(Guid id)
     {
         using (SchoolDbContext context = _contextFactory.CreateDbContext())
         {
-            return await context.Courses
-                .Include(c => c.Students)
-                .Include(c => c.Instructor)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Courses.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 

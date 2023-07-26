@@ -15,9 +15,17 @@ public class Query
         _courseRepository = courseRepository;
     }
 
-    public async Task<IEnumerable<CourseDTO>> GetAllCoursesAsync()
+    public async Task<IEnumerable<CourseType>> GetAllCoursesAsync()
     {
-        return await _courseRepository.GetAll();
+        IEnumerable<CourseDTO> courseDTOs = await _courseRepository.GetAll();
+
+        return courseDTOs.Select(c => new CourseType()
+        {
+            Id = c.Id,
+            Name = c.Name,
+            Subject = c.Subject,
+            InstructorId = c.InstructorId
+        });
     }
 
     public async Task<CourseDTO> GetCourseById(Guid id)
