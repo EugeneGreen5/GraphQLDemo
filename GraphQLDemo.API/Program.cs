@@ -15,9 +15,10 @@ builder.Services.AddGraphQLServer()
     .AddQueryType<Query>()
     .AddMutationType<Mutation>()
     .AddSubscriptionType<Subscription>()
-    .AddInMemorySubscriptions();
+    .AddInMemorySubscriptions()
+    .AddFiltering();
 
-builder.Services.AddPooledDbContextFactory<SchoolDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddPooledDbContextFactory<SchoolDbContext>(options => options.UseSqlServer(connectionString).LogTo(Console.WriteLine));
 
 builder.Services.AddScoped<SchoolDbContext>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();

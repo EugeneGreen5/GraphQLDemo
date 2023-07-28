@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using GraphQLDemo.API.Data;
 using GraphQLDemo.API.Data.DTO;
 using GraphQLDemo.API.Models;
 using GraphQLDemo.API.Repositories;
@@ -24,7 +25,22 @@ public class Query
             Id = c.Id,
             Name = c.Name,
             Subject = c.Subject,
-            InstructorId = c.InstructorId
+            InstructorId = c.InstructorId,
+            
+        });
+    }
+
+    [UseDbContext(typeof(SchoolDbContext))]
+    [UsePaging(IncludeTotalCount = true, DefaultPageSize = 10)]
+    public IQueryable<CourseType> GetPaginatedCoursesAsync([ScopedService] SchoolDbContext context)
+    {
+        return context.Courses.Select(c => new CourseType()
+        {
+            Id = c.Id,
+            Name = c.Name,
+            Subject = c.Subject,
+            InstructorId = c.InstructorId,
+
         });
     }
 

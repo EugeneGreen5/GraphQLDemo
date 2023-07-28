@@ -24,5 +24,5 @@ public class CourseType
             Salary = instructorDTO.Salary
         };
     }
-    public IEnumerable<StudentType> Students { get; set; }
+    public IEnumerable<StudentType> Students { get; set; } 
 }
