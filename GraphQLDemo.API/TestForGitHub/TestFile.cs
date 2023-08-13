@@ -3,5 +3,5 @@
 public class TestFile
 {
     public int TestProp { get; set; }
-    public const int testInt;
+    public const int testInt = 5;
 }
